@@ -56,6 +56,14 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical">
 
+            <!-- Tombol Edit -->
+            <ImageButton
+                android:id="@+id/btnFavorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_favorite_border_24"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
 
         </LinearLayout>
     </LinearLayout>

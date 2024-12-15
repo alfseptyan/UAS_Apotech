@@ -35,80 +35,71 @@ class DokterAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(dokter: Dokter) {
+            // Set data ke tampilan
             binding.textName.text = dokter.name
             binding.textSpesialis.text = dokter.spesialis
             binding.textHarga.text = dokter.harga.toString()
 
+            // Listener untuk Edit
             binding.edit.setOnClickListener {
-                onEditClick(dokter)
+                val intent = Intent(itemView.context, EditDokterActivity::class.java).apply {
+                    putExtra("dokter_id", dokter.id)
+                    putExtra("name", dokter.name)
+                    putExtra("spesialis", dokter.spesialis)
+                    putExtra("harga", dokter.harga)
+                    putExtra("date", dokter.date)
+                }
+                itemView.context.startActivity(intent)
+            }
 
-                binding.delete.setOnClickListener {
-                    onDeleteClick(dokter)
+            // Listener untuk Delete
+            binding.delete.setOnClickListener {
+                val dokterId = dokter.id
+                if (dokterId.isNullOrEmpty()) {
+                    Toast.makeText(
+                        itemView.context,
+                        "ID Dokter tidak valid, tidak dapat menghapus.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    return@setOnClickListener
                 }
 
-                // Set listener untuk Edit
-                binding.edit.setOnClickListener {
-                    val intent = Intent(itemView.context, EditDokterActivity::class.java).apply {
-                        putExtra("dokter_id", dokter.id)
-                        putExtra("name", dokter.name)
-                        putExtra("spesialis", dokter.spesialis)
-                        putExtra("harga", dokter.harga)
-                        putExtra("date", dokter.date)
-                    }
-                    itemView.context.startActivity(intent)
-                }
+                // Panggil API untuk hapus
+                val apiService = APIClient.getInstance()
+                val response = apiService.deleteDokter(dokterId)
 
-                // Set listener untuk Delete
-                binding.delete.setOnClickListener {
-                    val dokterId = dokter.id
-                    if (dokterId.isNullOrEmpty()) {
-                        Toast.makeText(
-                            itemView.context,
-                            "ID Dokter tidak valid, tidak dapat menghapus.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        return@setOnClickListener
-                    }
-
-                    val APIService = APIClient.getInstance()
-                    val response = APIService.deleteDokter(dokterId)
-
-                    response?.enqueue(object : Callback<Dokter> {
-                        override fun onResponse(call: Call<Dokter>, response: Response<Dokter>) {
-                            if (response.isSuccessful) {
-                                // Menampilkan Toast jika penghapusan berhasil
-                                Toast.makeText(
-                                    itemView.context,
-                                    "Dokter ${dokter.name} berhasil dihapus",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-                                // Menghapus dokter dari list dan memperbarui RecyclerView
-                                val position = adapterPosition
-                                if (position != RecyclerView.NO_POSITION) {
-                                    dokterList.removeAt(position)
-                                    notifyItemRemoved(position)
-                                }
-
-                            } else {
-                                Toast.makeText(
-                                    itemView.context,
-                                    "Gagal menghapus dokter. Coba lagi.",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                        }
-
-                        override fun onFailure(call: Call<Dokter>, t: Throwable) {
-                            // Menangani kegagalan request API
+                response.enqueue(object : Callback<Dokter> {
+                    override fun onResponse(call: Call<Dokter>, response: Response<Dokter>) {
+                        if (response.isSuccessful) {
                             Toast.makeText(
                                 itemView.context,
-                                "Error: ${t.message}",
+                                "Dokter ${dokter.name} berhasil dihapus",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            // Hapus item dari list
+                            val position = adapterPosition
+                            if (position != RecyclerView.NO_POSITION) {
+                                dokterList.removeAt(position)
+                                notifyItemRemoved(position)
+                            }
+                        } else {
+                            Toast.makeText(
+                                itemView.context,
+                                "Gagal menghapus dokter. Coba lagi.",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                    })
-                }
+                    }
+
+                    override fun onFailure(call: Call<Dokter>, t: Throwable) {
+                        Toast.makeText(
+                            itemView.context,
+                            "Error: ${t.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                })
             }
         }
     }

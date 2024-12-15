@@ -42,9 +42,6 @@ class ProfileFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val options = listOf("Account Settings", "Notifications", "Privacy Policy", "Help & Support")
-        val adapter = OptionsAdapter(options) { option ->
-            Toast.makeText(requireContext(), "$option clicked", Toast.LENGTH_SHORT).show()
-        }
 
     }
 

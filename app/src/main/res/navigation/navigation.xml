@@ -2,11 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/HomeFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/HomeFragment"
         android:name="com.example.pppb_room.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
@@ -14,13 +13,11 @@
         android:id="@+id/wishlistFragment"
         android:name="com.example.pppb_room.WishlistFragment"
         android:label="WishlistFragment" />
-    <fragment
-        android:id="@+id/bookedFragment"
-        android:name="com.example.pppb_room.BookedFragment"
-        android:label="fragment_booked"
-        tools:layout="@layout/fragment_booked" />
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.pppb_room.ProfileFragment"
         android:label="ProfileFragment" />
+
+
 </navigation>

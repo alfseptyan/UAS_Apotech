@@ -6,17 +6,12 @@
         android:title="Explorer"/>
 
     <item
-        android:id="@+id/WishlistFragment"
+        android:id="@+id/wishlistFragment"
         android:icon="@drawable/btn_2"
         android:title="Wishlist"/>
 
     <item
-        android:id="@+id/BookedFragment"
-        android:icon="@drawable/bookmark"
-        android:title="Settings"/>
-
-    <item
-        android:id="@+id/ProfileFragment"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/btn_4"
         android:title="Profile"/>
 

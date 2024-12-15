@@ -15,6 +15,8 @@ data class Dokter(
     val date: String?,
     @SerializedName("harga")
     val harga: String?
+
+
 ) : Parcelable {
     // Constructor untuk membaca data dari Parcel
     constructor(parcel: Parcel) : this(
