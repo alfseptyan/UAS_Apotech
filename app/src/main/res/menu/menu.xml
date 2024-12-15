@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/HomeFragment"
+        android:icon="@drawable/btn_1"
+        android:title="Explorer"/>
+
+    <item
+        android:id="@+id/WishlistFragment"
+        android:icon="@drawable/btn_2"
+        android:title="Wishlist"/>
+
+    <item
+        android:id="@+id/BookedFragment"
+        android:icon="@drawable/bookmark"
+        android:title="Settings"/>
+
+    <item
+        android:id="@+id/ProfileFragment"
+        android:icon="@drawable/btn_4"
+        android:title="Profile"/>
+
+</menu>
